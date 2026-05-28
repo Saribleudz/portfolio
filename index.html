@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danee Ayasamy — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #a78bfa;
+      --accent-dim: #6d4fbd;
+      --accent-glow: rgba(167, 139, 250, 0.15);
+      --green: #3fb950;
+      --red: #f85149;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+    }
+
+    .nav-logo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── LAYOUT ── */
+    main { padding-top: 56px; }
+
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    section + section {
+      border-top: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2.5rem;
+    }
+
+    h2 span { color: var(--accent); margin-right: 0.5rem; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    .hero-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent-dim);
+      border-radius: 2rem;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0d1117;
+    }
+
+    .btn-primary:hover {
+      background: #c4b5fd;
+      border-color: #c4b5fd;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── TERMINAL CURSOR ── */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--accent);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── PROJECT CARDS ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+    }
+
+    .card-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .card-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.73rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2rem;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      color: var(--accent);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-link {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.2s;
+    }
+
+    .card-link:hover { color: var(--accent); }
+
+    .card-link svg { width: 14px; height: 14px; }
+
+    /* ── WIP CARD ── */
+    .card-wip {
+      border-color: rgba(245, 158, 11, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-wip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(245, 158, 11, 0.03) 18px,
+        rgba(245, 158, 11, 0.03) 20px
+      );
+      pointer-events: none;
+    }
+
+    .card-wip:hover { border-color: rgba(245, 158, 11, 0.55); }
+
+    .wip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 2rem;
+      padding: 0.2rem 0.6rem;
+    }
+
+    .wip-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #f59e0b;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    .tag-amber {
+      font-size: 0.73rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2rem;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #f59e0b;
+    }
+
+    /* ── SECONDARY PROJECTS ── */
+    .mini-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .mini-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      opacity: 0.85;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+
+    .mini-card:hover {
+      opacity: 1;
+      border-color: var(--border);
+    }
+
+    .mini-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+      color: var(--text);
+    }
+
+    .mini-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .skill-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      min-width: 90px;
+      padding-top: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* ── CONTACT ── */
+    #contact { padding-bottom: 6rem; }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s, color 0.2s;
+      max-width: 420px;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .contact-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .contact-text { display: flex; flex-direction: column; }
+    .contact-title { font-size: 0.875rem; font-weight: 600; }
+    .contact-sub { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── À PROPOS ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-text p {
+      font-size: 0.925rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .about-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .about-text em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .highlight-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent-dim);
+      border-radius: 0 6px 6px 0;
+      padding: 0.75rem 1rem;
+    }
+
+    .highlight-key {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .highlight-val {
+      font-size: 0.85rem;
+      color: var(--text);
+      font-family: 'Cascadia Code', 'Fira Code', monospace;
+    }
+
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .cards { grid-template-columns: 1fr; }
+      .mini-cards { grid-template-columns: 1fr; }
+      .skill-group { flex-direction: column; gap: 0.5rem; }
+      .skill-label { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">danee.dev</span>
+  <ul class="nav-links">
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#a-propos">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-label">Portfolio · 2026</p>
+    <h1 class="hero-name">Danee Ayasamy<span class="cursor"></span></h1>
+    <p class="hero-sub">
+      Étudiant ingénieur CESI Lyon · Stage chez emlyon Business School ·
+      Orienté infrastructure réseau &amp; cloud Azure · Passionné par les systèmes qui tiennent en prod.
+    </p>
+    <div class="hero-badge">Alternance 3 ans · IT généraliste · octobre 2026</div>
+    <div class="hero-links">
+      <a class="btn btn-primary" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        GitHub
+      </a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/danee-ayasamy/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        LinkedIn
+      </a>
+    </div>
+  </section>
+
+  <!-- PROJETS PHARES -->
+  <section id="projets">
+    <h2><span>#</span>Projets phares</h2>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">AGT-PV-JURY</span>
+          <span class="card-icon">⚡</span>
+        </div>
+        <p class="card-desc">
+          Automatisation complète de la génération de PV de jury chez emlyon. Un fichier déposé dans
+          Teams déclenche le pipeline : extraction du texte, génération du PV via GPT-4o mini,
+          conversion en .docx et notification dans Teams via Adaptive Card.
+        </p>
+        <div class="card-stack">
+          <span class="tag">Azure Functions</span>
+          <span class="tag">Azure AI Foundry</span>
+          <span class="tag">Power Automate</span>
+          <span class="tag">SharePoint</span>
+          <span class="tag">Teams</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-link" style="cursor:default;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 14.5c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Repo privé
+          </span>
+          <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">PER Macro Excel</span>
+          <span class="card-icon">📊</span>
+        </div>
+        <p class="card-desc">
+          Macro VBA de 1 600 lignes pour automatiser la consolidation des données du Parcours
+          d'Engagement Responsable depuis un export Talend. Détection NIV1/NIV1BIS/NIV2,
+          gestion CF/CD, logs qualité complets et cellules protégées.
+        </p>
+        <div class="card-stack">
+          <span class="tag">VBA</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Talend</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-link" style="cursor:default;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 14.5c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Repo privé
+          </span>
+          <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Port Scanner</span>
+          <span class="card-icon">🔍</span>
+        </div>
+        <p class="card-desc">
+          Scanner de ports TCP avec interface web. Scan parallélisé sur 100 threads, détection
+          du service sur chaque port ouvert, export CSV des résultats.
+        </p>
+        <div class="card-stack">
+          <span class="tag">Python</span>
+          <span class="tag">Flask</span>
+          <span class="tag">socket</span>
+          <span class="tag">HTML/CSS/JS</span>
+        </div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="card card-wip">
+        <div class="card-header">
+          <span class="card-title">Azure Lab — VNet & NSG</span>
+          <span class="wip-badge">En construction</span>
+        </div>
+        <p class="card-desc">
+          Lab Azure documenté comme un vrai projet d'infra : VNet segmenté en plusieurs subnets,
+          NSG avec règles firewall explicites, deux VMs qui communiquent entre elles,
+          schéma d'architecture propre.
+        </p>
+        <div class="card-stack">
+          <span class="tag-amber">Azure VNet</span>
+          <span class="tag-amber">NSG</span>
+          <span class="tag-amber">VM</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-link" style="cursor:default; color: rgba(245,158,11,0.6);">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 14.5c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            Repo privé · WIP
+          </span>
+          <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AUTRES PROJETS -->
+  <section id="autres">
+    <h2><span>#</span>Autres projets</h2>
+    <div class="mini-cards">
+
+      <div class="mini-card">
+        <span class="mini-title">Infrastructure réseau immeuble</span>
+        <p class="mini-desc">
+          Conception et déploiement complet d'un réseau d'immeuble sur Cisco Packet Tracer :
+          segmentation VLAN par étage, DHCP par portée, DNS, Spanning Tree (STP),
+          Wi-Fi, accès SSH sécurisé, double pile IPv4 &amp; IPv6.
+          Câblage, plan d'adressage et tests de bout en bout.
+        </p>
+        <div class="card-stack" style="margin-top:0.25rem;">
+          <span class="tag">Cisco Packet Tracer</span>
+          <span class="tag">VLAN</span>
+          <span class="tag">DHCP / DNS</span>
+          <span class="tag">STP</span>
+          <span class="tag">SSH</span>
+          <span class="tag">IPv4 / IPv6</span>
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <span class="mini-title">Jeu de la Vie</span>
+        <p class="mini-desc">
+          Implémentation du Game of Life de Conway en C++ avec SFML.
+          Architecture orientée objet, rendu graphique temps réel.
+        </p>
+        <div class="card-stack" style="margin-top:0.25rem;">
+          <span class="tag">C++</span>
+          <span class="tag">SFML</span>
+          <span class="tag">POO</span>
+        </div>
+        <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener" style="margin-top:0.5rem;">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub (bientôt public)
+        </a>
+      </div>
+
+      <div class="mini-card">
+        <span class="mini-title">Excel Synthèse Python</span>
+        <p class="mini-desc">
+          Consolidation automatique des fichiers de suivi de mobilité internationale emlyon
+          en un Excel unique. Mapping dynamique des colonnes, normalisation des semestres,
+          table de référence auto-enrichie et logs d'exécution.
+        </p>
+        <div class="card-stack" style="margin-top:0.25rem;">
+          <span class="tag">Python</span>
+          <span class="tag">pandas</span>
+          <span class="tag">openpyxl</span>
+        </div>
+        <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener" style="margin-top:0.5rem;">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2><span>#</span>Compétences</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <span class="skill-label">Langages</span>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">VBA</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">Cloud & IA</span>
+        <div class="skill-tags">
+          <span class="skill-tag">Azure Functions</span>
+          <span class="skill-tag">Azure AI Foundry</span>
+          <span class="skill-tag">Azure Static Web Apps</span>
+          <span class="skill-tag">Copilot Studio</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">Outils</span>
+        <div class="skill-tags">
+          <span class="skill-tag">Power Automate</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">pandas / openpyxl</span>
+          <span class="skill-tag">JSON parsing</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">VS Code</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">Réseaux</span>
+        <div class="skill-tags">
+          <span class="skill-tag">TCP/IP · IPv4 · IPv6</span>
+          <span class="skill-tag">VLAN · Trunk · STP</span>
+          <span class="skill-tag">DHCP · DNS</span>
+          <span class="skill-tag">SSH · Wi-Fi</span>
+          <span class="skill-tag">HTTP/S</span>
+          <span class="skill-tag">Cisco Packet Tracer</span>
+          <span class="skill-tag">Wireshark</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="a-propos">
+    <h2><span>#</span>À propos</h2>
+    <div class="about-grid">
+
+      <div class="about-text">
+        <p>
+          Je suis étudiant ingénieur à CESI Lyon, actuellement en stage chez emlyon Business School
+          où j'effectue des missions techniques variées : automatisation de processus,
+          traitement de données, intégration d'outils Azure.
+          Mon objectif est simple mais exigeant : <strong>devenir vraiment compétent</strong>.
+          Pas juste capable de faire tourner un script, mais de comprendre en profondeur
+          les systèmes que je touche, de diagnostiquer, d'optimiser et de faire des choix éclairés.
+        </p>
+        <p>
+          Je recherche une <strong>alternance de 3 ans</strong> à partir d'octobre 2026,
+          avec une forte orientation <em>réseau et infrastructure cloud</em>.
+          Azure et tout ce qui l'entoure m'intéressent particulièrement, tout comme les fondamentaux réseau.
+          J'ai mis en place de A à Z l'infrastructure d'un immeuble sur Cisco Packet Tracer :
+          segmentation par VLANs, DHCP par portée, DNS, Spanning Tree pour éviter les boucles,
+          accès Wi-Fi, administration à distance via SSH, double pile <em>IPv4 / IPv6</em>.
+          J'ai compris pourquoi chaque brique est là, pas seulement comment la brancher.
+        </p>
+        <p>
+          Ce travail sur les données m'a aussi amené à manipuler régulièrement du <em>JSON</em>
+          en Python, que ce soit pour intégrer des réponses d'API ou transformer des exports.
+          Ce qui me caractérise, c'est que je ne m'arrête pas à « ça tourne » :
+          je veux savoir pourquoi ça tourne, et comment ça pourrait mieux tourner.
+          Je pose des questions, je creuse, et je reviens rarement les mains vides.
+        </p>
+      </div>
+
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="highlight-key">Formation</div>
+          <div class="highlight-val">Ingénieur CESI Lyon</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-key">Alternance visée</div>
+          <div class="highlight-val">3 ans · oct. 2026</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-key">Cible</div>
+          <div class="highlight-val">Réseau · Cloud · Infra</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-key">Expérience</div>
+          <div class="highlight-val">emlyon Business School</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-key">Simulateur réseau</div>
+          <div class="highlight-val">Cisco Packet Tracer</div>
+        </div>
+        <div class="highlight-item">
+          <div class="highlight-key">Cloud</div>
+          <div class="highlight-val">Azure · AI Foundry · Functions</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2><span>#</span>Contact</h2>
+    <div class="contact-links">
+
+      <a class="contact-item" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span class="contact-text">
+          <span class="contact-title">GitHub</span>
+          <span class="contact-sub">github.com/Saribleudz</span>
+        </span>
+      </a>
+
+      <a class="contact-item" href="https://www.linkedin.com/in/danee-ayasamy/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        <span class="contact-text">
+          <span class="contact-title">LinkedIn</span>
+          <span class="contact-sub">linkedin.com/in/danee-ayasamy</span>
+        </span>
+      </a>
+
+      <a class="contact-item" href="mailto:ayasamydanee@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+        <span class="contact-text">
+          <span class="contact-title">Email</span>
+          <span class="contact-sub">ayasamydanee@gmail.com</span>
+        </span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Danee Ayasamy · CESI Lyon · 2026 — Déployé sur Azure Static Web Apps
+</footer>
+
+</body>
+</html>
