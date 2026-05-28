@@ -353,6 +353,52 @@
       color: #f59e0b;
     }
 
+    /* ── PRIVATE CARD ── */
+    .card-priv {
+      border-color: rgba(139, 148, 158, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-priv::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 18px,
+        rgba(139, 148, 158, 0.035) 18px,
+        rgba(139, 148, 158, 0.035) 20px
+      );
+      pointer-events: none;
+    }
+
+    .card-priv:hover { border-color: rgba(139, 148, 158, 0.45); }
+
+    .priv-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(139, 148, 158, 0.08);
+      border: 1px solid rgba(139, 148, 158, 0.25);
+      border-radius: 2rem;
+      padding: 0.2rem 0.6rem;
+    }
+
+    .priv-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.5;
+    }
+
     /* ── SECONDARY PROJECTS ── */
     .mini-cards {
       display: grid;
@@ -598,8 +644,31 @@
 
       <div class="card">
         <div class="card-header">
+          <span class="card-title">Azure Lab — VNet & NSG</span>
+          <span class="card-icon">☁️</span>
+        </div>
+        <p class="card-desc">
+          Lab Azure documenté comme un vrai projet d'infra : VNet segmenté en plusieurs subnets,
+          NSG avec règles firewall explicites, deux VMs qui communiquent entre elles,
+          schéma d'architecture propre.
+        </p>
+        <div class="card-stack">
+          <span class="tag">Azure VNet</span>
+          <span class="tag">NSG</span>
+          <span class="tag">VM</span>
+        </div>
+        <div class="card-footer">
+          <a class="card-link" href="https://github.com/Saribleudz/AzureLab-Vnet-NSG" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="card card-priv">
+        <div class="card-header">
           <span class="card-title">AGT-PV-JURY</span>
-          <span class="card-icon">⚡</span>
+          <span class="priv-badge">public après autorisation</span>
         </div>
         <p class="card-desc">
           Automatisation complète de la génération de PV de jury chez emlyon. Un fichier déposé dans
@@ -612,30 +681,6 @@
           <span class="tag">Power Automate</span>
           <span class="tag">SharePoint</span>
           <span class="tag">Teams</span>
-        </div>
-        <div class="card-footer">
-          <span class="card-link" style="cursor:default; font-style:italic; font-size:0.75rem;">accord confidentialité entreprise</span>
-          <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub · bientôt public
-          </a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">PER Macro Excel</span>
-          <span class="card-icon">📊</span>
-        </div>
-        <p class="card-desc">
-          Macro VBA de 1 600 lignes pour automatiser la consolidation des données du Parcours
-          d'Engagement Responsable depuis un export Talend. Détection NIV1/NIV1BIS/NIV2,
-          gestion CF/CD, logs qualité complets et cellules protégées.
-        </p>
-        <div class="card-stack">
-          <span class="tag">VBA</span>
-          <span class="tag">Excel</span>
-          <span class="tag">Talend</span>
         </div>
         <div class="card-footer">
           <span class="card-link" style="cursor:default; font-style:italic; font-size:0.75rem;">accord confidentialité entreprise</span>
@@ -669,25 +714,26 @@
         </div>
       </div>
 
-      <div class="card card-wip">
+      <div class="card card-priv">
         <div class="card-header">
-          <span class="card-title">Azure Lab — VNet & NSG</span>
-          <span class="wip-badge">En construction</span>
+          <span class="card-title">PER Macro Excel</span>
+          <span class="priv-badge">public après autorisation</span>
         </div>
         <p class="card-desc">
-          Lab Azure documenté comme un vrai projet d'infra : VNet segmenté en plusieurs subnets,
-          NSG avec règles firewall explicites, deux VMs qui communiquent entre elles,
-          schéma d'architecture propre.
+          Macro VBA de 1 600 lignes pour automatiser la consolidation des données du Parcours
+          d'Engagement Responsable depuis un export Talend. Détection NIV1/NIV1BIS/NIV2,
+          gestion CF/CD, logs qualité complets et cellules protégées.
         </p>
         <div class="card-stack">
-          <span class="tag-amber">Azure VNet</span>
-          <span class="tag-amber">NSG</span>
-          <span class="tag-amber">VM</span>
+          <span class="tag">VBA</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Talend</span>
         </div>
         <div class="card-footer">
-          <a class="card-link" href="https://github.com/Saribleudz/AzureLab-Vnet-NSG" target="_blank" rel="noopener">
+          <span class="card-link" style="cursor:default; font-style:italic; font-size:0.75rem;">accord confidentialité entreprise</span>
+          <a class="card-link" href="https://github.com/Saribleudz" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            Voir sur GitHub
+            GitHub · bientôt public
           </a>
         </div>
       </div>
